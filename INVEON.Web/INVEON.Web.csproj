@@ -127,7 +127,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Filters\IsAdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -164,9 +167,11 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Product\List.cshtml" />
+    <Content Include="Views\Product\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -197,6 +202,10 @@
     <ProjectReference Include="..\INVEON.Data\INVEON.Data.csproj">
       <Project>{5A2D331B-2C22-4861-819E-CF4FE1BC82F4}</Project>
       <Name>INVEON.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\INVEON.Dtos\INVEON.Dtos.csproj">
+      <Project>{9D4E8A75-D44E-406B-B7F2-F2DF6260E03F}</Project>
+      <Name>INVEON.Dtos</Name>
     </ProjectReference>
     <ProjectReference Include="..\INVEON.Ioc\INVEON.Ioc.csproj">
       <Project>{D55FC9B9-2F8A-4EAF-B061-050D972E0D0F}</Project>

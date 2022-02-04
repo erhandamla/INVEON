@@ -18,7 +18,7 @@ namespace INVEON.Business.Concrete
 
         public void Add(User entity)
         {
-            _userRepository.Delete(entity);
+            _userRepository.Insert(entity);
         }
 
         public void Delete(int id)

@@ -57,6 +57,10 @@
       <Project>{5A2D331B-2C22-4861-819E-CF4FE1BC82F4}</Project>
       <Name>INVEON.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\INVEON.Dtos\INVEON.Dtos.csproj">
+      <Project>{9D4E8A75-D44E-406B-B7F2-F2DF6260E03F}</Project>
+      <Name>INVEON.Dtos</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
