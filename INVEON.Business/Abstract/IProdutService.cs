@@ -7,7 +7,7 @@ namespace INVEON.Business.Abstract
     public interface IProductService
     {
         List<Product> GetList();
-        void Add(Product product);
+        void Add(ProductInsertViewModel product);
         void Update(ProductUpdateViewModel product);
         void Delete(int id);
         Product Find(int id);

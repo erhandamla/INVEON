@@ -12,15 +12,33 @@ namespace INVEON.Business.Concrete
     public class ProductService : IProductService
     {
         private readonly IRepository<Product> _productRepository;
+        private readonly IUnitOfWork _uow;
+
 
         public ProductService(IUnitOfWork uow)
         {
-            _productRepository = uow.GetRepository<Product>();
+            _uow = uow;
+            _productRepository = _uow.GetRepository<Product>();
         }
 
-        public void Add(Product entity)
+
+        public void Add(ProductInsertViewModel product)
         {
+            var entity = new Product
+            {
+                Id = 0,
+                Barcode = product.Barcode,
+                Name = product.Name,
+                CreatedBy = product.CreatedBy,
+                Description = product.Description,
+                InStock = product.Instock,
+                IsActive = true,
+                Price = product.Price,
+                Image = product.Image,
+                CreatedDate = DateTime.Now
+            };
             _productRepository.Insert(entity);
+            _uow.SaveChanges();
         }
 
         public void Delete(int id)
@@ -47,10 +65,11 @@ namespace INVEON.Business.Concrete
             entity.Description = model.Description;
             entity.Price = model.Price;
             entity.Image = model.Image;
-            entity.UpdatedBy = model.UpdatedBy;
+            //entity.UpdatedBy = model.UpdatedBy;
             entity.UpdatedDate = DateTime.Now;
 
             _productRepository.Update(entity);
+            _uow.SaveChanges();
         }
     }
 }

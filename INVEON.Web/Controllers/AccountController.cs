@@ -29,10 +29,19 @@ namespace INVEON.Web.Controllers
 
             if (user != null)
             {
+                Session.Add("UserId", user.Id);
                 Session.Add("UserName", user.UserName);
+
                 Session.Add("IsAdmin", user.IsAdmin);
             }
-            return View();
+            return RedirectToAction("../Product/List");
+        }
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            return View(nameof(Login));
         }
     }
 }

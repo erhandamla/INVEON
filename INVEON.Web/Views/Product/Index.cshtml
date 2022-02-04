@@ -1,0 +1,26 @@
+﻿@model INVEON.Core.Entities.Product
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+	<div class="panel-heading">@Model.Name</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-lg-3">Barkod: @Model.Barcode</div>
+
+			<div class="col-lg-3">Açıklama:@Model.Description</div>
+			<div class="col-lg-3">Fiyat:@Model.Price</div>
+
+			<div class="col-lg-3">Stok Adedi:@Model.InStock</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4"></div>
+		</div>
+	</div>
+</div>
+<label>@Model.Name</label>

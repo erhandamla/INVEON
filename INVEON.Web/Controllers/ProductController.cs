@@ -18,11 +18,10 @@ namespace INVEON.Web.Controllers
             _productService = productService;
             _userService = userService;
         }
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            var product = _productService.GetList();
-            var users = _userService.GetList();
-            return Json(product, JsonRequestBehavior.AllowGet);
+            var product = _productService.Find(id);
+            return View(product);
         }
 
         public ActionResult List()
@@ -31,19 +30,43 @@ namespace INVEON.Web.Controllers
             return View(productList);
         }
 
-        [IsAdminFilter]
+        //[IsAdminFilter]
         public ActionResult Update(int id)
         {
-            var productList = _productService.GetList();
-            return View(productList);
+            var product = _productService.Find(id);
+            var viewModel = new ProductUpdateViewModel
+            {
+                Barcode = product.Barcode,
+                Id = product.Id,
+                Description = product.Description,
+                Image = product.Image,
+                IsActive = product.IsActive,
+                Name = product.Name,
+                Price = product.Price
+            };
+
+            return View(viewModel);
         }
 
-        [IsAdminFilter]
+        //[IsAdminFilter]
         [HttpPost]
         public ActionResult Update(ProductUpdateViewModel product)
         {
             _productService.Update(product);
-            return View(nameof(Update));
+            return RedirectToAction(nameof(List));
+        }
+
+        public ActionResult Insert()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Insert(ProductInsertViewModel product)
+        {
+            product.CreatedBy = (int)Session.Contents["UserId"];
+            _productService.Add(product);
+            return RedirectToAction(nameof(List));
         }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace INVEON.Dtos.ViewModels
 {
-    public class ProductUpdateViewModel
+    public class ProductInsertViewModel
     {
         public int Id { get; set; }
 
@@ -12,7 +12,7 @@ namespace INVEON.Dtos.ViewModels
 
         [Display(Name = "Ürün Adı")]
         public string Name { get; set; }
-        
+
         [Display(Name = "Açıklama")]
         public string Description { get; set; }
 
@@ -27,7 +27,7 @@ namespace INVEON.Dtos.ViewModels
 
         [Display(Name = "Aktif Mi")]
         public bool IsActive { get; set; }
-        //public int? UpdatedBy { get; set; }
+        public int CreatedBy { get; set; }
         //public DateTime? UpdatedDate { get; set; }
     }
 }
