@@ -37,6 +37,7 @@ namespace INVEON.Business.Concrete
                 Image = product.Image,
                 CreatedDate = DateTime.Now
             };
+
             _productRepository.Insert(entity);
             _uow.SaveChanges();
         }
@@ -64,12 +65,14 @@ namespace INVEON.Business.Concrete
             entity.Name = model.Name;
             entity.Description = model.Description;
             entity.Price = model.Price;
-            entity.Image = model.Image;
+            //entity.Image = model.Image;
             //entity.UpdatedBy = model.UpdatedBy;
             entity.UpdatedDate = DateTime.Now;
 
             _productRepository.Update(entity);
             _uow.SaveChanges();
         }
+
+
     }
 }

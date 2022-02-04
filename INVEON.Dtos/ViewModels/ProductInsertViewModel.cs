@@ -23,7 +23,7 @@ namespace INVEON.Dtos.ViewModels
         public int Instock { get; set; }
 
         [Display(Name = "Görsel")]
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
 
         [Display(Name = "Aktif Mi")]
         public bool IsActive { get; set; }

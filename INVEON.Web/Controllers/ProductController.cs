@@ -2,6 +2,11 @@
 using INVEON.Data.UnitOfWork;
 using INVEON.Dtos.ViewModels;
 using INVEON.Web.Filters;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace INVEON.Web.Controllers
@@ -21,13 +26,43 @@ namespace INVEON.Web.Controllers
         public ActionResult Index(int id)
         {
             var product = _productService.Find(id);
-            return View(product);
+            var viewModel = new ProductViewModel
+            {
+                Image = ConvertToBase64(product.Image),
+                Barcode = product.Barcode,
+                Description = product.Description,
+                Name = product.Name,
+                Price = product.Price,
+                IsActive = product.IsActive,
+                InStock = product.InStock,
+                CreatedBy = product.CreatedBy
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult List()
         {
-            var productList = _productService.GetList();
-            return View(productList);
+            var productList = _productService.GetList().Where(w=>w.IsActive).ToList();
+            var list = new List<ProductViewModel>();
+            foreach (var product in productList)
+            {
+                var model = new ProductViewModel
+                {
+                    Id = product.Id,
+                    Image = ConvertToBase64(product.Image),
+                    Barcode = product.Barcode,
+                    Description = product.Description,
+                    Name = product.Name,
+                    Price = product.Price,
+                    IsActive = product.IsActive,
+                    InStock = product.InStock,
+                    CreatedBy = product.CreatedBy
+                };
+
+                list.Add(model);
+            }
+            return View(list);
         }
 
         //[IsAdminFilter]
@@ -39,7 +74,8 @@ namespace INVEON.Web.Controllers
                 Barcode = product.Barcode,
                 Id = product.Id,
                 Description = product.Description,
-                Image = product.Image,
+                Image = ConvertToBase64(product.Image),
+                Instock = product.InStock,
                 IsActive = product.IsActive,
                 Name = product.Name,
                 Price = product.Price
@@ -64,9 +100,23 @@ namespace INVEON.Web.Controllers
         [HttpPost]
         public ActionResult Insert(ProductInsertViewModel product)
         {
+            product.Image = ConvertToBytes(Request.Files["ImageData"]);
             product.CreatedBy = (int)Session.Contents["UserId"];
             _productService.Add(product);
             return RedirectToAction(nameof(List));
+        }
+
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
+        }
+
+        public string ConvertToBase64(byte[] array)
+        {
+            return "data:image/jpeg;base64," + Convert.ToBase64String(array, 0, array.Length);
         }
     }
 }

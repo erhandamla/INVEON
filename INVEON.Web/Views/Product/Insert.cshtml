@@ -8,9 +8,13 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 
-		@using (Html.BeginForm("Insert", "Product", FormMethod.Post, new { enctype ="multipart/form-data", @class = "nav-login-form" }))
+		@using (Html.BeginForm("Insert", "Product", FormMethod.Post, new { enctype = "multipart/form-data", @class = "nav-login-form" }))
 		{
 			@Html.HiddenFor(m => m.Id);
+			<div class="form-group">
+				@Html.LabelFor(m => m.Image)
+				<input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+			</div>
 			<div class="form-group">
 				@Html.LabelFor(m => m.Barcode)
 				@Html.TextBoxFor(m => m.Barcode, new { @class = "form-control" })
@@ -31,12 +35,9 @@
 				@Html.LabelFor(m => m.Instock)
 				@Html.TextBoxFor(m => m.Instock, new { @class = "form-control" })
 			</div>
-			<div class="form-group">
-				@Html.LabelFor(m => m.Image)
-				@Html.TextBoxFor(m => m.Image, new { @class = "form-control" })
-			</div>
 
-			<button type="submit" class="btn btn-default">Güncelle</button>
+
+			<button type="submit" class="btn btn-success">Kaydet</button>
 		}
 
 	</div>

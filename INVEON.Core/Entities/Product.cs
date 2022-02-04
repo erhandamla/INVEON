@@ -10,7 +10,7 @@ namespace INVEON.Core.Entities
         public decimal Price { get; set; }
 
         public int InStock { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

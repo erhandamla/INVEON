@@ -1,4 +1,4 @@
-﻿@model List<INVEON.Core.Entities.Product>
+﻿@model List<INVEON.Dtos.ViewModels.ProductViewModel>
 @{
 	ViewBag.Title = "List";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,25 +16,33 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
+							<th>Görsel</th>
 							<th>Barkod</th>
 							<th>Adı</th>
 							<th>Açıklama</th>
 							<th>Fiyat</th>
 							<th>Güncelle</th>
+							<th>Sil</th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach (var product in Model)
 						{
-							<tr>
-								<td><a href="@Url.Action("Index","Product",new { id = product.Id })">@product.Barcode</a></td>
-								<td>@product.Name</td>
-								<td>@product.Description</td>
-								<td>@product.Price</td>
-								<td>
-									@Html.ActionLink("Güncelle", "/Update", new { id = product.Id }, new { @class = "btn btn-warning" })
-								</td>
-							</tr>
+						<tr>
+							<td>
+								<img alt="" src="@product.Image" style="height:25px;width:25px;" />
+							</td>
+							<td><a href="@Url.Action("Index","Product",new { id = product.Id })">@product.Barcode</a></td>
+							<td>@product.Name</td>
+							<td>@product.Description</td>
+							<td>@product.Price</td>
+							<td>
+								@Html.ActionLink("Güncelle", "/Update", new { id = product.Id }, new { @class = "btn btn-warning" })
+							</td>
+							<td>
+								@Html.ActionLink("Sil", "/Delete", new { id = product.Id }, new { @class = "btn btn-danger" })
+							</td>
+						</tr>
 						}
 					</tbody>
 				</table>
