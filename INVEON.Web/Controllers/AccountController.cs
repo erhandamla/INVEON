@@ -19,6 +19,10 @@ namespace INVEON.Web.Controllers
         // GET: Account
         public ActionResult Login()
         {
+            if (Session["UserName"] != null)
+            {
+                return RedirectToAction("List","Product");
+            }
             return View();
         }
 
@@ -33,8 +37,14 @@ namespace INVEON.Web.Controllers
                 Session.Add("UserName", user.UserName);
 
                 Session.Add("IsAdmin", user.IsAdmin);
-            }
             return RedirectToAction("../Product/List");
+
+            }
+            else
+            {
+                TempData["Error"] = "Lütfen kullanıcı adı ve parolanızın doğruluğundan emin olunuz!";
+                return View();
+            }
         }
         public ActionResult LogOut()
         {

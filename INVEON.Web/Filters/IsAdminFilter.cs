@@ -5,19 +5,32 @@ using System.Web.Routing;
 
 namespace INVEON.Web.Filters
 {
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class IsAdminFilter : ActionFilterAttribute
     {
-        public override void OnActionExecuted(ActionExecutedContext filterContext)
+
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            HttpSessionStateBase session = filterContext.HttpContext.Session;
-            if (session == null || !(bool)session.Contents["IsAdmin"])
+            var session = filterContext.HttpContext.Session;
+            if (session.Contents["UserName"] == null)
             {
-                filterContext.Result = new RedirectToRouteResult(
-                    new RouteValueDictionary {
-                                { "Account", "Login" }
-                                });
+                var values = new RouteValueDictionary(new
+                {
+                    action = "Login",
+                    controller = "Account"
+                });
+                filterContext.Result = new RedirectToRouteResult(values);
             }
+            if (session.Contents["IsAdmin"] != null && !(bool)session.Contents["IsAdmin"])
+            {
+               
+                var values = new RouteValueDictionary(new
+                {
+                    action = "Login",
+                    controller = "Account"
+                });
+                filterContext.Result = new RedirectToRouteResult(values);
+            }
+            base.OnActionExecuting(filterContext);
         }
         //public override void OnActionExecuting(ActionExecutingContext filterContext)
         //{

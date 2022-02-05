@@ -45,7 +45,9 @@ namespace INVEON.Business.Concrete
         public void Delete(int id)
         {
             var entity = _productRepository.Find(id);
-            _productRepository.Delete(entity);
+            entity.IsActive = false;
+            _productRepository.Update(entity);
+            _uow.SaveChanges();
         }
 
         public Product Find(int id)
@@ -65,8 +67,12 @@ namespace INVEON.Business.Concrete
             entity.Name = model.Name;
             entity.Description = model.Description;
             entity.Price = model.Price;
-            //entity.Image = model.Image;
-            //entity.UpdatedBy = model.UpdatedBy;
+            entity.InStock = model.Instock;
+            if (model.Image != null)
+            {
+                entity.Image = model.Image;
+            }
+            entity.UpdatedBy = model.UpdatedBy;
             entity.UpdatedDate = DateTime.Now;
 
             _productRepository.Update(entity);

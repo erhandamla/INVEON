@@ -57,7 +57,8 @@ namespace INVEON.Web.Controllers
                     Price = product.Price,
                     IsActive = product.IsActive,
                     InStock = product.InStock,
-                    CreatedBy = product.CreatedBy
+                    CreatedBy = product.CreatedBy,
+                    CreatedDate = product.CreatedDate
                 };
 
                 list.Add(model);
@@ -65,7 +66,7 @@ namespace INVEON.Web.Controllers
             return View(list);
         }
 
-        //[IsAdminFilter]
+        [IsAdminFilter]
         public ActionResult Update(int id)
         {
             var product = _productService.Find(id);
@@ -74,7 +75,7 @@ namespace INVEON.Web.Controllers
                 Barcode = product.Barcode,
                 Id = product.Id,
                 Description = product.Description,
-                Image = ConvertToBase64(product.Image),
+                ImageBase64 = ConvertToBase64(product.Image),
                 Instock = product.InStock,
                 IsActive = product.IsActive,
                 Name = product.Name,
@@ -88,10 +89,16 @@ namespace INVEON.Web.Controllers
         [HttpPost]
         public ActionResult Update(ProductUpdateViewModel product)
         {
+            if (Request.Files["ImageData"].ContentLength !=  0)
+            {
+                product.Image = ConvertToBytes(Request.Files["ImageData"]);
+                product.UpdatedBy = (int)Session.Contents["UserId"];    
+            }
             _productService.Update(product);
             return RedirectToAction(nameof(List));
         }
 
+        [IsAdminFilter]
         public ActionResult Insert()
         {
             return View();
@@ -117,6 +124,12 @@ namespace INVEON.Web.Controllers
         public string ConvertToBase64(byte[] array)
         {
             return "data:image/jpeg;base64," + Convert.ToBase64String(array, 0, array.Length);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            _productService.Delete(id);
+            return RedirectToAction("List", "Product");
         }
     }
 }

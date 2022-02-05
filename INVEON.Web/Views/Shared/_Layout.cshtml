@@ -10,7 +10,17 @@
 	<link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
 	<link href="~/Content/bootstrap.css" rel="stylesheet" />
 	<link href="~/Content/Site.css" rel="stylesheet" />
+	<style>
+		input[type=number]::-webkit-inner-spin-button,
+		input[type=number]::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
 
+		.required {
+			color: red;
+		}
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-default" style="margin-top:-50px">
@@ -52,7 +62,12 @@
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="#">Ana Sayfa</a></li>
-						
+						@if (Session["UserName"] == null)
+						{
+							<li>
+								<a href="@Url.Action("Login","Account")">Giriş Yap</a>
+							</li>
+						}
 
 						<li role="separator" class="divider"></li>
 						<li>

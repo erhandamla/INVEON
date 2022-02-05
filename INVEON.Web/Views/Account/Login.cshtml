@@ -2,6 +2,12 @@
 @{
 	Layout = "../Shared/_Layout.cshtml";
 }
+@if (TempData["Error"] != null)
+{
+	<div class="alert alert-danger" role="alert">@TempData["Error"]</div>
+
+}
+<div class="alert alert-info" role="alert">Yönetici İçin | Kullanıcı Adı: admin Şifre: 12345</div>
 
 <div class="panel panel-default">
 	<div class="panel-body">
@@ -10,25 +16,15 @@
 		{
 			<div class="form-group">
 				@Html.LabelFor(m => m.UserName)
-				@Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+				@Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Kullanıcı Adı" })
 			</div>
 			<div class="form-group">
 				@Html.LabelFor(m => m.Password)
-				@Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+				@Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Parola" })
 			</div>
 			<button type="submit" class="btn btn-default">Giriş</button>
+
 		}
 
-		@*<form>
-				<div class="form-group">
-					<label for="exampleInputEmail1">Email address</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputPassword1">Password</label>
-					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-			</form>*@
 	</div>
 </div>

@@ -23,11 +23,14 @@ namespace INVEON.Dtos.ViewModels
         public int Instock { get; set; }
 
         [Display(Name = "Görsel")]
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
+
+        [Display(Name = "Görsel")]
+        public string ImageBase64 { get; set; }
 
         [Display(Name = "Aktif Mi")]
         public bool IsActive { get; set; }
-        //public int? UpdatedBy { get; set; }
-        //public DateTime? UpdatedDate { get; set; }
+        public int? UpdatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
     }
 }

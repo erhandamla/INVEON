@@ -3,14 +3,23 @@
 	ViewBag.Title = "List";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@{
+	var isAdmin = false;
+	if (Session.Contents["IsAdmin"] != null && (bool)Session.Contents["IsAdmin"])
+	{
+		 isAdmin = (bool)Session.Contents["IsAdmin"];
+	}
+}
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">
 				Ürün Listesi
-				<a href="@Url.Action("Insert","Product")" class="btn btn-sm btn-success pull-right">+ Ürün Ekle</a>
+				@if (isAdmin)
+				{
+					<a href="@Url.Action("Insert","Product")" style="margin-top: -0.4%;" class="btn btn-sm btn-success pull-right"><b>+ Ürün Ekle</b></a>
+				}
 			</div>
 			<div class="panel-body">
 				<table class="table table-striped">
@@ -22,8 +31,13 @@
 							<th>Açıklama</th>
 							<th>Fiyat</th>
 							<th>Stok Adedi</th>
-							<th>Güncelle</th>
-							<th>Sil</th>
+							@if (isAdmin)
+							{
+								<th>Oluşturma Tarihi</th>
+								<th>Güncelle</th>
+								<th>Sil</th>
+							}
+
 						</tr>
 					</thead>
 					<tbody>
@@ -39,12 +53,18 @@
 							<td>@product.Price</td>
 							<td>@product.InStock</td>
 
-							<td>
-								@Html.ActionLink("Güncelle", "/Update", new { id = product.Id }, new { @class = "btn btn-warning" })
-							</td>
-							<td>
-								@Html.ActionLink("Sil", "/Delete", new { id = product.Id }, new { @class = "btn btn-danger" })
-							</td>
+							@if (isAdmin)
+							{
+								<td>@product.CreatedDate.ToString("dd/MM/yyyy HH:mm")</td>
+
+								<td>
+									@Html.ActionLink("Güncelle", "/Update", new { id = product.Id }, new { @class = "btn btn-warning" })
+								</td>
+								<td>
+									@Html.ActionLink("Sil", "/Delete", new { id = product.Id }, new { @class = "btn btn-danger" })
+								</td>
+							}
+
 						</tr>
 						}
 					</tbody>

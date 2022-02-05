@@ -6,13 +6,13 @@
 }
 
 <div class="panel panel-default">
-	<div class="panel-heading"><b>Ürün Adı: </b>@Model.Name</div>
-	<div class="panel-body">
+	<div class="panel-heading" style="font-size:large"><b>Ürün Adı: </b>@Model.Name</div>
+	<div class="panel-body" style="background:whitesmoke">
 		<div class="row">
-			<div class="col-lg-3">
+			<div class="col-lg-4">
 				<img alt="" src="@Model.Image"  style="height:200px;width:200px;"/>
 			</div>
-			<div class="col-lg-9">
+			<div class="col-lg-8">
 				<div class="row">
 					<div class="col-lg-3"><b>Barkod:</b> @Model.Barcode</div>
 					<div class="col-lg-3"><b>Açıklama:</b> @Model.Description</div>
@@ -20,12 +20,6 @@
 					<div class="col-lg-3"><b>Stok Adedi:</b>@Model.InStock</div>
 				</div>
 			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col-lg-4"></div>
-			<div class="col-lg-4"></div>
-			<div class="col-lg-4"></div>
 		</div>
 	</div>
 </div>
