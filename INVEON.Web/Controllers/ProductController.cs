@@ -26,6 +26,10 @@ namespace INVEON.Web.Controllers
         public ActionResult Index(int id)
         {
             var product = _productService.Find(id);
+            if (product == null)
+            {
+                return RedirectToAction("List","Product");
+            }
             var viewModel = new ProductViewModel
             {
                 Image = ConvertToBase64(product.Image),
@@ -43,7 +47,7 @@ namespace INVEON.Web.Controllers
 
         public ActionResult List()
         {
-            var productList = _productService.GetList().Where(w=>w.IsActive).ToList();
+            var productList = _productService.GetList().Where(w=>w.IsActive).OrderByDescending(o=>o.Id).ToList();
             var list = new List<ProductViewModel>();
             foreach (var product in productList)
             {

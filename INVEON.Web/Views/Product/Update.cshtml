@@ -56,3 +56,15 @@
 
 	</div>
 </div>
+<script>
+
+	$(document).ready(function () {
+		$('#Price').inputmask({
+			'alias': 'decimal',
+			'radixPoint': ',',
+			'autoGroup': true,
+			'digits': 2,
+			'digitsOptional': false
+		});
+	});
+</script>
