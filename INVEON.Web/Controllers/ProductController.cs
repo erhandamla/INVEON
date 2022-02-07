@@ -105,7 +105,7 @@ namespace INVEON.Web.Controllers
         [IsAdminFilter]
         public ActionResult Insert()
         {
-            return View();
+            return View(new ProductInsertViewModel());
         }
 
         [HttpPost]

@@ -23,7 +23,7 @@ namespace INVEON.Web.Controllers
             {
                 return RedirectToAction("List","Product");
             }
-            return View();
+            return View(new UserLoginViewModel());
         }
 
         [HttpPost]
